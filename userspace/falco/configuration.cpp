@@ -609,7 +609,7 @@ void falco_configuration::load_yaml(const std::string &config_name) {
 	m_falco_libs_snaplen = m_config.get_scalar<std::uint64_t>("falco_libs.snaplen", 0);
 
 	m_base_syscalls_custom_set.clear();
-	m_config.get_sequence<std::unordered_set<std::string>>(m_base_syscalls_custom_set,
+	m_config.get_sequence_associative<std::unordered_set<std::string>>(m_base_syscalls_custom_set,
 	                                                       std::string("base_syscalls.custom_set"));
 	m_base_syscalls_repair = m_config.get_scalar<bool>("base_syscalls.repair", false);
 	m_base_syscalls_all = m_config.get_scalar<bool>("base_syscalls.all", false);

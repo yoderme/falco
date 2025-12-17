@@ -249,6 +249,17 @@ public:
 	}
 
 	/**
+	 * Get the sequence value from the node identified by key,
+	 * when T is an associative container.
+	 */
+	template<typename T>
+	void get_sequence_associative(T& ret, const std::string& key) const {
+		YAML::Node node;
+		get_node(node, key);
+		return get_sequence_from_node_associative<T>(ret, node);
+	}
+
+	/**
 	 * Return true if the node identified by key is defined.
 	 */
 	bool is_defined(const std::string& key) const {
@@ -446,6 +457,19 @@ private:
 				}
 			} else if(node.IsScalar()) {
 				ret.insert(ret.end(), node.as<typename T::value_type>());
+			}
+		}
+	}
+
+	template<typename T>
+	void get_sequence_from_node_associative(T& ret, const YAML::Node& node) const {
+		if(node.IsDefined()) {
+			if(node.IsSequence()) {
+				for(const YAML::Node& item : node) {
+					ret.insert(item.as<typename T::value_type>());
+				}
+			} else if(node.IsScalar()) {
+				ret.insert(item.as<typename T::value_type>());
 			}
 		}
 	}
