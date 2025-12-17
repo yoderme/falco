@@ -469,7 +469,7 @@ private:
 					ret.insert(item.as<typename T::value_type>());
 				}
 			} else if(node.IsScalar()) {
-				ret.insert(item.as<typename T::value_type>());
+				ret.insert(node.as<typename T::value_type>());
 			}
 		}
 	}
